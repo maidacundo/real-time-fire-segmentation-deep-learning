@@ -5,7 +5,7 @@ import cv2
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
+def load_images_from_zip(zip_file_path: str, resize_shape: Tuple[int, int], are_masks: bool) -> np.ndarray:
     """Load the images used for the segmentation task from a zip file.
     If the `are_mask` parameter is set to true, the images will be
     decoded in grayscale. Otherwise they will be decoded in BGR.
@@ -46,6 +46,7 @@ def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
             if are_masks:
                 img = cv2.imdecode(np.frombuffer(data, np.uint8),
                                    cv2.IMREAD_GRAYSCALE)
+                img = cv2.resize(img, resize_shape, interpolation=cv2.INTER_NEAREST)                              
             else:
                 img = cv2.imdecode(np.frombuffer(data, np.uint8),
                                    cv2.IMREAD_COLOR)
