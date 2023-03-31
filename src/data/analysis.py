@@ -1,11 +1,12 @@
-from typing import Literal
+from typing import Literal, Optional
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
 def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
-                         num_samples: int = 3) -> None:
+                         num_samples: int = 3, 
+                         title: Optional[str] = None) -> None:
     """
     Plot a desired number of dataset samples.
     On the first row the original images are plotted, on the second
@@ -51,9 +52,10 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
         legend_elements = [
             Patch(facecolor='r', edgecolor='black', label='Fire ROI')]
         ax.legend(handles=legend_elements, loc='upper left')
-
-    plt.suptitle(f'Representation of {num_samples} images from the dataset '
-                 'along with their fire mask and the highlighted segmentation')
+    if title is None:
+        title = f'Representation of {num_samples} images from the dataset '
+        'along with their fire mask and the highlighted segmentation'
+    plt.suptitle(title)
     plt.tight_layout()
     plt.show()
 
@@ -84,6 +86,7 @@ def _get_highlighted_roi_by_mask(
     channel_map = { 'blue': 0, 'green': 1, 'red': 2 }
 
     # Turn the mask into a BGR image.
+    mask = mask.astype(np.uint8)
     mask = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
 
     # Force the bits of every channel except the selected one at 0.
