@@ -23,6 +23,9 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
         Numpy array of the segmentation masks of the given images.
     num_samples : int, optional
         The number of samples to plot, by default 3.
+    title : str, optional
+        The title of the plot. If not provided it is assigned
+        manually. By default None.
     """
     # Get equidistant sample indices for the images in the dataset.
     sample_indices = np.linspace(0, len(images) - 1, num=num_samples,

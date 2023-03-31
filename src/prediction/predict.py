@@ -12,6 +12,29 @@ def predict(
     model: FireSegmentationModel, dataloader: DataLoader, device: str,
     resize_evaluation_shape: Optional[Tuple[int, int]] = None
     ) -> np.ndarray:
+    """
+    Get the predicted segmentation mask from the data of a
+    dataloader.
+
+    Parameters
+    ----------
+    model : FireSegmentationModel
+        The model to use for the predictions.
+    dataloader : DataLoader
+        The data loader which data should be predicted.
+    device : str
+        The device to use for predicting.
+    resize_evaluation_shape : (int, int), optional
+        The target shape of the predicted segmentation masks.
+        If not provided, the shape remains unchanged.
+        By default None.
+
+    Returns
+    -------
+    ndarray
+        The predicted and eventually reshaped sematic segmentation
+        masks of the images of the dataloader.
+    """
     # Remove unused tensors from the GPU.
     torch.cuda.empty_cache()
 

@@ -229,6 +229,36 @@ def validate(
     model: FireSegmentationModel, val_dataloader: DataLoader, device: str,
     resize_evaluation_shape: Optional[Tuple[int, int]] = None
     ) -> Tuple[float, float, float, float]:
+    """
+    Validate the predictions of a model for the semantic segmentation
+    task of fires. The loss, MPA (Mean Pixel Average), MIoU (Mean
+    Intersection over Union) and FPS (Frames Per Second) are computed
+    on the results with respect to the ground truth. 
+
+    Parameters
+    ----------
+    model : FireSegmentationModel
+        The model to use for validation.
+    val_dataloader : DataLoader
+        The data loader used for validation.
+    device : str
+        The device to use for validation.
+    resize_evaluation_shape : (int, int), optional
+        The target shape of the segmentation masks to use for
+        evaluation. If not provided, the shape remains unchanged.
+        By default None.
+
+    Returns
+    -------
+    float
+        The validation loss.
+    float
+        The validation MPA (Mean Pixel Average).
+    float
+        The validation MIoU (Mean Intersection over Union).
+    float
+        The validation FPS (Frames Per Second).
+    """
     torch.cuda.empty_cache()
     model.eval()
 
