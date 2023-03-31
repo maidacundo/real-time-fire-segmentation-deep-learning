@@ -31,9 +31,6 @@ def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
     """
     images = []
 
-    #TODO: remove
-    i = 0
-
     with ZipFile(zip_file_path) as zf:
         # Get file names list and skip the first folder name.
         file_names = zf.namelist()[1:]
@@ -53,10 +50,7 @@ def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
                 img = cv2.imdecode(np.frombuffer(data, np.uint8),
                                    cv2.IMREAD_COLOR)
             images.append(img)
-            # TODO: remove
-            i += 1
-            if i == 500:
-                break
+
     # Return the images as a numpy array.
     return np.array(images)
 

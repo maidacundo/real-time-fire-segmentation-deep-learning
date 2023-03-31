@@ -127,7 +127,7 @@ def train(
 
                 f'lr: {optimizer.param_groups[0]["lr"]:.3g}',
                 '             ' if batch_steps < len(train_dataloader) else '',
-                )#end='\r')
+                end='\r')
 
             # Apply the validation step.
             if batch_steps % validation_step == 0:
