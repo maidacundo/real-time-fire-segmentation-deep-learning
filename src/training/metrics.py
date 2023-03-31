@@ -111,13 +111,13 @@ class MIoU(nn.Module):
         with torch.no_grad():
             # Get the image predictions through softmax and argmax
             # (0: background, 1: foreground).
-            inputs = inputs.softmax(-3).argmax(-3)
+            inputs = inputs.softmax(-3).argmax(-3, keepdim=True)
 
             # Concatenate the background and foreground predictions
             # channel-wise.
             bg_predictions = ~inputs.bool()
             fg_predictions = inputs.bool()
-            inputs = torch.cat([bg_predictions, fg_predictions], dim=-1)
+            inputs = torch.cat([bg_predictions, fg_predictions], dim=-3)
 
             # Turn the ground truth to a boolean tensor.
             targets = targets.bool()
@@ -178,13 +178,13 @@ class MPA(nn.Module):
         with torch.no_grad():
             # Get the image predictions through softmax and argmax
             # (0: background, 1: foreground).
-            inputs = inputs.softmax(-3).argmax(-3)
+            inputs = inputs.softmax(-3).argmax(-3, keepdim=True)
 
             # Concatenate the background and foreground predictions
             # channel-wise.
             bg_predictions = ~inputs.bool()
             fg_predictions = inputs.bool()
-            inputs = torch.cat([bg_predictions, fg_predictions], dim=-1)
+            inputs = torch.cat([bg_predictions, fg_predictions], dim=-3)
 
             # Turn the ground truth to a boolean tensor.
             targets = targets.bool()
