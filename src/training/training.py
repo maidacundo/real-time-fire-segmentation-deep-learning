@@ -143,10 +143,11 @@ def train(
                     f'{epoch_time:.0f}s -',
 
                     f'val: {{ loss: {val_loss:.3g} -',
-                    f'MPA: {val_mpa * 100:.3g} -',
-                    f'MiOU: {val_miou * 100:.3g} }} -',
+                    f'MPA: {val_mpa * 100:.3g}% -',
+                    f'MiOU: {val_miou * 100:.3g}% }} -',
 
                     f'lr: {optimizer.param_groups[0]["lr"]:.3g} -',
+                    end='\r'
                 )
 
                 # Save the model checkpoints if demanded.
@@ -188,12 +189,12 @@ def train(
             f'{epoch_time:.0f}s -',
 
             f'train: {{ loss: {train_loss:.3g} -',
-            f'MPA: {train_mpa:.3g} -',
-            f'MiOU: {train_miou:.3g} }} -',
+            f'MPA: {train_mpa * 100:.3g}% -',
+            f'MiOU: {train_miou * 100:.3g}% }} -',
 
             f'val: {{ loss: {val_loss:.3g} -',
-            f'MPA: {val_mpa:.3g} -',
-            f'MiOU: {val_miou:.3g} }} -',
+            f'MPA: {val_mpa * 100:.3g}% -',
+            f'MiOU: {val_miou * 100:.3g}% }} -',
 
             f'lr: {optimizer.param_groups[0]["lr"]:.3g} -',
             )
