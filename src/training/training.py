@@ -2,6 +2,7 @@ from time import time
 from typing import Dict, List, Optional, Tuple
 import torch
 from torch.utils.data.dataloader import DataLoader
+from torchvision.transforms import Resize, InterpolationMode
 import numpy as np
 
 from .metrics import FocalLoss, MIoU, MPA
@@ -219,8 +220,14 @@ def train(
 
     return history
 
+def resize_image_batch(images: torch.FloatTensor,
+                       new_size: Tuple[int, int]) -> torch.FloatTensor:
+    resize = Resize(new_size, InterpolationMode.NEAREST_EXACT)
+    return resize(images)
+
 def validate(
-    model: FireSegmentationModel, val_dataloader: DataLoader, device: str
+    model: FireSegmentationModel, val_dataloader: DataLoader, device: str,
+    resize_evaluation_shape: Optional[Tuple[int, int]] = None
     ) -> Tuple[float, float, float, float]:
     torch.cuda.empty_cache()
     model.eval()
@@ -228,7 +235,6 @@ def validate(
     criterion = FocalLoss()
     mpa_metric = MPA()
     miou_metric = MIoU()
-
 
     running_val_loss = 0.
     running_val_mpa = 0.
@@ -246,6 +252,12 @@ def validate(
             y_pred = model(x)
             time_taken = time() - start_time
 
+            if resize_evaluation_shape is not None:
+                # Resize the predictions and the ground truth masks.
+                y = resize_image_batch(y, new_size=resize_evaluation_shape)
+                y_pred = resize_image_batch(
+                    y_pred, new_size=resize_evaluation_shape)
+
             # Compute the loss on the results and ground truth.
             loss = criterion(y_pred, y)
             running_val_loss += loss.item()
@@ -254,7 +266,7 @@ def validate(
             mpa = mpa_metric(y_pred, y)
             miou = miou_metric(y_pred, y)
 
-            # LUpdate the running metrics.
+            # Update the running metrics.
             running_val_mpa += mpa.item()
             running_val_miou += miou.item()
             running_val_fps += x.shape[0] / time_taken
