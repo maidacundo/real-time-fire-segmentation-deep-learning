@@ -30,7 +30,7 @@ def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
         3 color channels are present (BGR).
     """
     images = []
-    
+
     #TODO: remove
     i = 0
 
@@ -62,6 +62,20 @@ def load_images_from_zip(zip_file_path: str, are_masks: bool) -> np.ndarray:
 
 def resize_images(
     images: np.ndarray, resize_shape: Tuple[int, int]) -> np.ndarray:
+    """Resize an array of images to a desired shape.
+
+    Parameters
+    ----------
+    images : ndarray
+        The array of images to reshape
+    resize_shape : (int, int)
+        The desired output shape of the images.
+
+    Returns
+    -------
+    ndarray
+        The reshaped input array of images.
+    """
     images = [cv2.resize(img, resize_shape, interpolation=cv2.INTER_AREA)
               for img in images]
 
@@ -73,6 +87,33 @@ def get_train_val_test_dataset_split(
     ) -> Tuple[Tuple[np.ndarray, np.ndarray],
                Tuple[np.ndarray, np.ndarray],
                Tuple[np.ndarray, np.ndarray]]:
+    """Split the images and mask dataset into train, validation and test.
+
+    Parameters
+    ----------
+    images : ndarray
+        The images of the dataset.
+    masks : ndarray
+        The segmentation masks of the dataset.
+    test_size : float, optional
+        The test size ratio, by default 0.15.
+    val_size : float, optional
+        The validation size ratio, by default 0.15.
+    seed : int, optional
+        The seed to use for the split, by default 42.
+
+    Returns
+    -------
+    (ndarray, ndarray)
+        Tuple containing the input images and the segmentation masks
+        of the train set.
+    (ndarray, ndarray)
+        Tuple containing the input images and the segmentation masks
+        of the validation set.
+    (ndarray, ndarray)
+        Tuple containing the input images and the segmentation masks
+        of the test set.
+    """
     X_train, X_test, y_train, y_test =  train_test_split(
         images, masks, test_size=test_size, shuffle=True, random_state=seed)
     X_train, X_val, y_train, y_val =  train_test_split(
