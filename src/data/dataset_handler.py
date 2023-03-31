@@ -76,7 +76,7 @@ def resize_images(
     ndarray
         The reshaped input array of images.
     """
-    images = [cv2.resize(img, resize_shape, interpolation=cv2.INTER_AREA)
+    images = [cv2.resize(img, resize_shape, interpolation=cv2.INTER_NEAREST)
               for img in images]
 
     return np.array(images)
