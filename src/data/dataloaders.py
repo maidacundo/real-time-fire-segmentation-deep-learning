@@ -121,7 +121,7 @@ class FireDetectionDataset(Dataset):
         # Create a background mask that is the opposite of the original
         # fire mask.
         y_b = (~y.bool()).float()
-        y_b[y_b == 1] = 255
+        y = y.bool().float()
         # Create a 2 channel mask containing the semantic segmentation
         # of the background and the foreground.
         y = torch.cat([y_b, y], dim=0)
