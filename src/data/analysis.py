@@ -1,12 +1,15 @@
-from typing import Literal, Optional
+from typing import Literal, Optional, Tuple
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+from dataset_handler import resize_images
 
 def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
                          num_samples: int = 3, 
-                         title: Optional[str] = None) -> None:
+                         title: Optional[str] = None,
+                         resize_shape: Optional[Tuple[int, int]] = None
+                         ) -> None:
     """
     Plot a desired number of dataset samples.
     On the first row the original images are plotted, on the second
@@ -26,21 +29,31 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
     title : str, optional
         The title of the plot. If not provided it is assigned
         manually. By default None.
+    resize_shape : (int, int), optional
+        The size used to reshape images before plotting.
+        By default None.
     """
     # Get equidistant sample indices for the images in the dataset.
     sample_indices = np.linspace(0, len(images) - 1, num=num_samples,
                                  dtype=int)
     _, axes = plt.subplots(3, num_samples, figsize=(15, 8))
 
-    for i, idx in enumerate(sample_indices):
+    images = images[sample_indices]
+    masks = masks[sample_indices]
+
+    if resize_shape is not None:
+        images = resize_images(images, resize_shape)
+        masks = resize_images(masks, resize_shape)
+
+    for i, (img, mask) in enumerate(zip(images, masks)):
         # Plot color image.
         ax = axes[0, i]
-        ax.imshow(cv2.cvtColor(images[idx], cv2.COLOR_BGR2RGB))
+        ax.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         ax.axis('off')
 
         # Plot mask.
         ax = axes[1, i]
-        ax.imshow(masks[idx], cmap='gray', vmin=0., vmax=1.)
+        ax.imshow(mask, cmap='gray', vmin=0., vmax=1.)
         ax.axis('off')
         legend_elements = [
             Patch(facecolor='w', edgecolor='black',label='Fire mask')]
@@ -49,7 +62,7 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
         # Plot highlighted mask over the color image.
         ax = axes[2, i]
         highlighted_roi = _get_highlighted_roi_by_mask(
-            images[idx], masks[idx], highlight_channel='red')
+            img, mask, highlight_channel='red')
         ax.imshow(cv2.cvtColor(highlighted_roi, cv2.COLOR_BGR2RGB))
         ax.axis('off')
         legend_elements = [
