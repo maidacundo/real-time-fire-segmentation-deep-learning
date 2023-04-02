@@ -50,7 +50,7 @@ def load_images_from_zip(zip_file_path: str, resize_shape: Tuple[int, int], are_
                 img = cv2.imdecode(np.frombuffer(data, np.uint8),
                                    cv2.IMREAD_COLOR)
             if img is not None:
-                img = cv2.resize(img, resize_shape, interpolation = cv2.INTER_AREA)
+                img = cv2.resize(img, resize_shape, interpolation = cv2.INTER_NEAREST)
             images.append(img)
 
     # Return the images as a numpy array.
