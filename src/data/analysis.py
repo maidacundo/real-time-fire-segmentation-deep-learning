@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
-from dataset_handler import resize_images
+from .dataset_handler import resize_images
 
 def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
                          num_samples: int = 3, 
