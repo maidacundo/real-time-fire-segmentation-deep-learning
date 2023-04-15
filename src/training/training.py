@@ -273,14 +273,17 @@ def validate(
     running_val_fps = 0.
 
     with torch.no_grad():
+        
         for _, (x, y) in enumerate(val_dataloader):
             # Put the data to the desired device.
             x = x.to(device=device)
             y = y.to(device=device)
 
             # Compute the model predictions.
+            torch.cuda.synchronize(device)
             start_time = time()
             y_pred = model(x)
+            torch.cuda.synchronize(device)
             time_taken = time() - start_time
 
             if resize_evaluation_shape is not None:
