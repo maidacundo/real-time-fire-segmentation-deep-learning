@@ -34,14 +34,16 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
         The size used to reshape images before plotting.
         By default None.
     """
+    len_images = min(len(images), len(masks))
+
     # Get equidistant sample indices for the images in the dataset.
-    sample_indices = np.linspace(0, len(images) - 1, num=num_samples,
+    sample_indices = np.linspace(0, len_images - 1, num=num_samples,
                                  dtype=int)
     _, axes = plt.subplots(3, num_samples, figsize=(15, 8))
 
     images = images[sample_indices]
     masks = masks[sample_indices]
-
+    
     if resize_shape is not None:
         images = resize_images(images, resize_shape)
         masks = resize_images(masks, resize_shape)
