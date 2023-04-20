@@ -76,11 +76,11 @@ The following optional non positional arguments are present:
 * `--masks-zip-path`, `-msks` (default='data/Masks.zip'): The path of the woodland fires segmentation masks zip file.
 * `--checkpoint-file-path`, `-ckpt` (default='model/checkpoints.pth'): The path of the file where the model checkpoints are saved.
 * `--train-mean-std-file-path`, `-ms` (default='model/mean-std.npy'): The file path where the train mean and standard deviation are saved.
-* `--seed`, `-s` (default=$42$): The seed used for reproducibility.
+* `--seed`, `-s` (default= $42$ ): The seed used for reproducibility.
 * `--device`, `-d` (default=`None`): The device to use for training. If not provided, it is set automatically.
-* `--train-batch-size`, `-tb` (default=$2$): The batch size used for training.
-* `--eval-batch-size`, `-eb` (default=$2$): The batch size used for evaluation.
-* `--epochs`, `e` (default=$30$): The number of epochs to train the model.
+* `--train-batch-size`, `-tb` (default= $2$ ): The batch size used for training.
+* `--eval-batch-size`, `-eb` (default= $2$ ): The batch size used for evaluation.
+* `--epochs`, `e` (default= $30$ ): The number of epochs to train the model.
 
 ### Validation process
 The [validation process](scripts/validate.py), provides a *Python* script to execute the task of validating the fire segmentation model. It builds the train and validation datasets after loading the images and their segmentation masks. Then it builds the segementation model and loads its trained weights. Finally it evaluates the model on the validation and test datasets.
