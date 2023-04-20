@@ -1,4 +1,4 @@
-from time import time
+"""Module for predicting the segmentation masks of images."""
 from typing import Optional, Tuple
 import numpy as np
 import torch
@@ -9,8 +9,7 @@ from ..training.training import resize_image_batch
 
 
 def predict(
-    model: FireSegmentationModel, dataloader: DataLoader, device: str,
-    resize_evaluation_shape: Optional[Tuple[int, int]] = None
+    model: FireSegmentationModel, dataloader: DataLoader, device: str
     ) -> np.ndarray:
     """
     Get the predicted segmentation mask from the data of a
@@ -24,10 +23,6 @@ def predict(
         The data loader which data should be predicted.
     device : str
         The device to use for predicting.
-    resize_evaluation_shape : (int, int), optional
-        The target shape of the predicted segmentation masks.
-        If not provided, the shape remains unchanged.
-        By default None.
 
     Returns
     -------
@@ -52,11 +47,7 @@ def predict(
             # Compute the model predictions.
             y_pred = model(x)
             y_pred = y_pred.softmax(-3).argmax(-3)
-            
-            if resize_evaluation_shape is not None:
-                # Resize the predictions
-                y_pred = resize_image_batch(
-                    y_pred, new_size=resize_evaluation_shape)
+
             results.extend(y_pred.cpu().numpy())
 
     # Remove unused tensors from gpu memory.
