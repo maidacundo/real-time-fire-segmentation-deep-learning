@@ -51,7 +51,8 @@ def main():
 
     parser.add_argument(
         '--device', '-d', type=str, default=None, nargs='?',
-        help='The device to use for training.', required=False)
+        help='The device to use for training. If not provided, it is set '
+        'automatically.', required=False)
 
     parser.add_argument(
         '--train-batch-size', '-tb', type=int, default=2, nargs='?',
