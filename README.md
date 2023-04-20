@@ -6,6 +6,12 @@ This project aims at reproducing the experiment proposed in the paper [*A Real-t
 
 The work consists in the development of an improved version of *Deeplabv3+* that aims at predicting forest fires from images of drones, while increasing the segmentation speed and preserving the segmentation accuracy.
 
+<div align="center">
+
+  ![](images/sample-data.png)
+
+</div>
+
 * For more detailed informations about the used functions, look into the corresponding docstrings inside the python files, inside the `src` folder.
 
 * The training, validation and prediction scripts are available in the `script` folder.
@@ -22,6 +28,13 @@ In particular, the user should download the images of fires (*9) Images for fire
 
 ## Description
 The work consists in the development of an improved version of *Deeplabv3+*, which is an encoder-decoder network used for semantic segmentation tasks. Differently from that model, it uses the lightweight *Mobilenetv3* network in the decoding operations to increase the segmentation speed. For the same reason, it also avoids *atrous convolutions* in spite of losing segmemntation accuracy. In order to compensate for this loss the proposed network introduces two additional shallow features to the decoder rich in pattern information of the input images.
+
+<div align="center">
+
+  ![](images/model-diagram.png)
+
+</div>
+
 
 The first step is to prepare the data for training the model. It consists of a set of images and the respective masks. The images are aerial images of fire, and the masks are binary masks that indicate the semantic segmentation of the fire.
 
