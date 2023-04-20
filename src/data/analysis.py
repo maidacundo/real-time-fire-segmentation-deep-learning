@@ -1,3 +1,4 @@
+"""Module containing functions to analyze the dataset."""
 from typing import Literal, Optional, Tuple
 import cv2
 import numpy as np

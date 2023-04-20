@@ -1,3 +1,4 @@
+"""Module containing functions to analyze the prediction results."""
 from typing import Optional, Tuple
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch

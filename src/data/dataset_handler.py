@@ -1,3 +1,7 @@
+"""
+Module containing the functions to load the dataset and split it
+into train, validation and test sets.
+"""
 import re
 from typing import Tuple
 from zipfile import ZipFile

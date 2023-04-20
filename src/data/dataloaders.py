@@ -1,3 +1,4 @@
+"""Module containing the dataloaders for the fire segmentation task."""
 from typing import Tuple
 import torch
 from torch.utils.data.dataloader import Dataset, DataLoader

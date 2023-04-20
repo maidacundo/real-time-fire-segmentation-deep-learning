@@ -1,4 +1,4 @@
-from time import time
+"""Module for predicting the segmentation masks of images."""
 from typing import Optional, Tuple
 import numpy as np
 import torch
