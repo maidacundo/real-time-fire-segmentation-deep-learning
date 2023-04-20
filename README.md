@@ -1,4 +1,4 @@
-# :fire: Unofficial implementation of "A Real-time Fire Segmentation Method Based on A Deep Learning Approach" :evergreen_tree: :deciduous_tree
+# :fire: Unofficial implementation of "A Real-time Fire Segmentation Method Based on A Deep Learning Approach" :evergreen_tree: :deciduous_tree:
 
 Detecting and localizing woodland fires quickly and accurately is essential to prevent forest fires from becoming large and difficult to control, which can save money and resources that would otherwise be spent on fire suppression efforts. Moreover, a fast and precise recognition of forest fires can help protect the environment by minimizing the damage to ecosystems and preserving habitats for wildlife.
 
