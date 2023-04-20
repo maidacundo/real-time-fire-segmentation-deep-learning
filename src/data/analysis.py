@@ -61,7 +61,7 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
 
         # Plot highlighted mask over the color image.
         ax = axes[2, i]
-        highlighted_roi = _get_highlighted_roi_by_mask(
+        highlighted_roi = get_highlighted_roi_by_mask(
             img, mask, highlight_channel='red')
         ax.imshow(cv2.cvtColor(highlighted_roi, cv2.COLOR_BGR2RGB))
         ax.axis('off')
@@ -75,7 +75,7 @@ def plot_dataset_samples(images: np.ndarray, masks: np.ndarray,
     plt.tight_layout()
     plt.show()
 
-def _get_highlighted_roi_by_mask(
+def get_highlighted_roi_by_mask(
     image: np.ndarray, mask: np.ndarray,
     highlight_channel: Literal['blue', 'green', 'red'] = 'green'
     ) -> np.ndarray:
