@@ -203,3 +203,5 @@ Git is used for versioning.
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 The Lion Optimizer [script](src/training/lion.py) is Copyright 2023 Google Research (All Rights Reserved). Its usage is licensed under the Apache License, Version 2.0.
+
+Social preview by [Forest Fire Vectors by Vecteezy](https://www.vecteezy.com/free-vector/forest-fire).
