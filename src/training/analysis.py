@@ -1,3 +1,6 @@
+"""
+Module containing functions for analyzing the training history of the model.
+"""
 from typing import Dict
 import matplotlib.pyplot as plt
 import numpy as np
