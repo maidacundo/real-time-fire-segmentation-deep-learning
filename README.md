@@ -1,5 +1,7 @@
 # :fire: Unofficial implementation of "A Real-time Fire Segmentation Method Based on A Deep Learning Approach" :evergreen_tree: :deciduous_tree:
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/a-real-time-fire-segmentation-method-based-on/real-time-semantic-segmentation-on-flame)](https://paperswithcode.com/sota/real-time-semantic-segmentation-on-flame?p=a-real-time-fire-segmentation-method-based-on)
+
 Detecting and localizing woodland fires quickly and accurately is essential to prevent forest fires from becoming large and difficult to control, which can save money and resources that would otherwise be spent on fire suppression efforts. Moreover, a fast and precise recognition of forest fires can help protect the environment by minimizing the damage to ecosystems and preserving habitats for wildlife.
 
 This project aims at reproducing the experiment proposed in the paper [*A Real-time Fire Segmentation Method Based on A Deep Learning Approach*](./docs/A%20Real-time%20Fire%20Segmentation%20Method%20Based%20on%20A%20Deep%20Learning%20Approach.pdf) <a name="cite_paper"></a>[<sup>[1]</sup>](#note_paper).
@@ -81,6 +83,10 @@ The following optional non positional arguments are present:
 * `--train-batch-size`, `-tb` (default= $2$ ): The batch size used for training.
 * `--eval-batch-size`, `-eb` (default= $2$ ): The batch size used for evaluation.
 * `--epochs`, `e` (default= $30$ ): The number of epochs to train the model.
+
+⚠ **Warning for reproducibility**
+
+*Code is not fully reproducible because the upsampling algorithms `upsample_bilinear2d` adopted in the *Decoder* module is not deterministic. This operation may produce nondeterministic gradients when given tensors on a CUDA device. Different results may be obtained when re-running the pipeline.*
 
 ### Validation process
 The [validation process](scripts/validate.py), provides a *Python* script to execute the task of validating the fire segmentation model. It builds the train and validation datasets after loading the images and their segmentation masks. Then it builds the segementation model and loads its trained weights. Finally it evaluates the model on the validation and test datasets.
