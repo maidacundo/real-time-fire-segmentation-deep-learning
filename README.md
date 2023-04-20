@@ -54,7 +54,7 @@ The results of the model are evaluated on the test set and compared to the outco
 | :------- | :------------: | :---------: |
 | MPA      | 92.46 %        |  94.3 %     |
 | MIoU     | 86.98 %        |  86.1 %     |
-| FPS      | 59             |  55         |
+| FPS      | 59             |  58         |
 
 ## Interface
 
